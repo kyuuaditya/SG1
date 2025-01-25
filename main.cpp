@@ -19,13 +19,13 @@ int main() {
     Main_menu main_menu;
 
     player.Initialize();
-    sf::Clock clock;
-    float deltaTime = 0.;
+    stats.Initialize();
 
     //----------------------------------------------------Initialization--------------------------------------------------
 
     //---------------------------------------------------------Load-------------------------------------------------------
     player.Load();
+    stats.Load();
     //---------------------------------------------------------Load-------------------------------------------------------
 
     while (window.isOpen()) {
@@ -36,16 +36,17 @@ int main() {
                 window.close();
             }
         }
-        // player.Update(0.1f,sf::Vector2f(0,0),window);
 
-        sf::Time deltaTimeTimer = clock.restart();
-        deltaTime = deltaTimeTimer.asMicroseconds() / 1000.;
-        player.Update(deltaTime, window);
+        player.Update(stats.deltaTime, window);
+        stats.Update();
         //------------------------------------------------------Update-----------------------------------------------------
 
         //------------------------------------------------------Render-----------------------------------------------------
         window.clear(sf::Color::Black);
+
         player.Draw(window);
+        stats.Draw(window);
+
         window.display();
         //------------------------------------------------------Render-----------------------------------------------------
     }
